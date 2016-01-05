@@ -1,0 +1,77 @@
+<template name="newUser">
+
+    <!-- Page heading -->
+    {{> pageHeading title='Basic form' category='Forms' }}
+
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Nuevo camillero</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal" id="formUser">
+
+                            <div class="form-group"><label class="col-sm-2 control-label">Nombre</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="name" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group"><label class="col-sm-2 control-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="email" name="email" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group"><label class="col-sm-2 control-label">Password</label>
+                                <div class="col-sm-10">
+                                    <input type="password" name="password" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="col-sm-2 control-label">Area</label>
+                                <div class="col-sm-10">
+
+                                    <select class="form-control m-b" id="area">
+                                        {{#each getAreas}}
+                                            <option value="{{_id}}">{{name}}</option>
+                                        {{/each}}
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="col-sm-2 control-label">Turno</label>
+                                <div class="col-sm-10">
+
+                                    <select class="form-control m-b" id="schedule">
+                                        {{#each getTurnos}}
+                                            <option value="{{_id}}">{{name}}</option>
+                                        {{/each}}
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-white" id="btnCancel">Cancelar</button>
+                                    <button class="btn btn-primary" type="submit">Guardar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,10 @@
+<template name="userItem">
+	<tr>
+        <td class="client-avatar"><img alt="image" src="img/a2.jpg"> </td>
+        <td>
+        	<a data-toggle="tab" href="#contact-1" class="client-link">{{profile.name}}</a>
+        </td>
+        <td>{{getAreaLabel profile.area}}</td>
+        <td class="client-status"><span class="label label-primary">{{getStatus profile.status}}</span></td>
+    </tr>
+</template>
