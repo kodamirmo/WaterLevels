@@ -5,11 +5,10 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         
-        {{>device}}
-        {{>device}}
-        {{>device}}
-        {{>device}}
-
+        {{#each allDevices}}
+            {{>device}}
+        {{/each}}
+        
     </div>
 </template>
 
@@ -19,8 +18,8 @@
             <div class="col-lg-3">
                 <div class="widget style1">
                     <div class="row">
-                        <h1>Device 1</h1>
-                        Update at: 01/12/2015 08:45PM
+                        <h1>{{name}}</h1>
+                        Update at: {{dateLabel lastValue.date}}
                     </div>
                 </div>
             </div>
@@ -32,7 +31,7 @@
                         </div>
                         <div class="col-xs-8 text-right">
                             <span> Last value </span>
-                            <h2 class="font-bold">26 m</h2>
+                            <h2 class="font-bold">{{lastValue.level}} m</h2>
                         </div>
                     </div>
                 </div>
@@ -43,16 +42,17 @@
                     	<div class="ibox-content" style="margin-top:13px">
                         <div>
                             <span>Value</span>
-                            <small class="pull-right">73%</small>
+                            <small class="pull-right">{{percentValue lastValue.level maxValue}}%</small>
                         </div>
                         <div class="progress progress-small">
-                           	<div style="width: 40%;" class="progress-bar"></div>
+                           	<div style="width: {{percentValue lastValue.level maxValue}}%;" class="progress-bar"></div>
                         </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3">
+                <a href="#" data-id="{{_id}}" class="btnRequest">
                 <div class="widget red-bg p-lg text-center">
                     <div class="m-b-md">
                         
@@ -61,6 +61,7 @@
                         </h3>
                     </div>
                 </div>
+                </a>
             </div>
         </div>
 </template>

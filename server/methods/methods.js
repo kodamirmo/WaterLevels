@@ -1,81 +1,87 @@
 Meteor.methods({
 	
-	createPlace : function(json){
-		Places.insert(json);
-		return true;
-	},
+	requestValue : function(idDevice){
 
-	createCamillero : function(json){
-
-		var profile = {
-			area : json.area,
-			name : json.name,
-			workshift : json.workshift,
-			image : '',
-			status : 3
+		var getRandomInt = function getRandomInt(min, max) {
+    		return Math.floor(Math.random() * (max - min + 1)) + min;
 		};
-
-		var user = {
-			email : json.email,
-			password : json.password,
-			profile  : profile
-		};
-
-		Accounts.createUser(user);
-		return true;
-	},
-
-	createSchedule : function(json){
-		Schedules.insert(json);
-		return true;
-	},
-
-	createArea : function(json){
-		Areas.insert(json);
-		return true;
-	},
-
-	createPath : function(json){
-		Paths.insert(json);
-		return true;
-	},
-
-	createService : function(json){	
 		
-		var user = Meteor.users.findOne({_id:json.user});
-		var type = ServiceTypes.findOne({_id:json.serviceType});
+		var device = Devices.findOne({_id:idDevice});
+		var val = getRandomInt(6, device.maxValue);
+		var now = (new Date()).getTime();
 
-		json.schedule = user.profile.workshift;
-		json.generateTime = (new Date()).getTime();
-		json.startTime = 0;
-		json.finishTime = 0;
-		json.status = 0;
-		json.lastCheckTime = 0;
-
-		/*
-		if(json.defined){
-
-			var places = Paths.findOne({_id:json.route.path});
-			
-			var status = [];
-			_.each(places.places, function(id){
-				status.push({place:id,checked:false});
-			});
-			
-			json.walkStatus = status;
-
-		}else{
-			json.walkStatus = [];
-		}
-		*/
-
-		json.walkStatus = [];
-
-		json.notes = [];
-		console.log(json);
-
-		Services.insert(json);
-		return true;
-	}
 	
-});
+		var lastValue = {
+			date : now,
+			level : val
+		};
+
+
+		var entry = {
+			date : now,
+			level : val,
+			automatic : false,
+			device : idDevice
+		};
+
+
+		console.log(lastValue);
+
+		Devices.update({_id:idDevice},{$set:{lastValue:lastValue}});
+		Values.insert(entry);
+
+	},
+
+	generateChart1 : function(dataToServer){
+
+		console.log(dataToServer);
+		
+		var histories = Values.find({device:dataToServer.device, date  : {
+			$gte: dataToServer.startDate,
+			$lt:  dataToServer.finishDate
+		}}).fetch();
+			
+		var gembaData = [];
+
+		_.each(histories, function(history){
+
+			var data = [0,0];
+			data[0] = history.date;
+			data[1] = history.level;
+			
+			gembaData.push(data);
+
+		});
+
+		var d = Devices.findOne({_id:dataToServer.device});
+
+		var json = {
+			name : d.name,
+			data : gembaData
+		};
+
+		//Sort  by date 
+		gembaData = _.sortBy(gembaData,function(data){return data[0];})
+
+		var series = [];
+		series.push(json);		
+	
+		
+		var toChart = {
+			xAxis: {
+            	type: 'datetime',
+            	min: dataToServer.startDate,
+     			max: dataToServer.finishDate,
+            	title: {
+                	text: 'Date'
+            	}
+        	},
+			series : series
+		};
+
+		console.log(toChart);
+		return toChart;
+
+	},
+
+})

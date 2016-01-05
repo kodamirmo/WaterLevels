@@ -1,0 +1,64 @@
+<template name="report1">
+
+    <!-- Page heading -->
+    {{> pageHeading title='Values trend by device' }}
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+       
+    	<div class="row">
+    		<div class="ibox float-e-margins">
+    			<div class="ibox-title">
+                        <h5>Values trend by device</h5>
+                </div>
+    			<div class="ibox-content">
+ 		   			
+
+                <div class="col-sm-6">
+
+                    Start 
+                    <input id="startTime" type="text" >
+              
+                    End
+                    <input id="endTime" type="text" >
+
+                </div>
+
+                <div class="col-sm-3">
+
+                    <div class="form-group">
+                     <div class="input-group">
+                        <select class="form-control" id="dropDevice">
+                            <option value="">Select device</option>
+                            {{#each devices}}
+                                <option value="{{_id}}">{{name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-3">
+                    <button type="button" id="view" class="btn btn-primary btn-lg">View report</button>
+                </div>
+
+                &nbsp;
+
+ 		   		</div>
+    		</div>
+    	</div>
+
+        <div class="row">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    
+                    <div id="chartContainer" style="width: 900px; height: 400px;"></div>
+
+                </div>
+            </div>
+        </div>
+
+                
+
+    </div>
+</template>

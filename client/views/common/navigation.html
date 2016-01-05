@@ -36,6 +36,14 @@
                     <a href="{{pathFor route='devices'}}"><i class="fa fa-flask"></i> <span class="nav-label">Devices</span> </a>
                 </li>
 
+                <li class="{{isActiveRoute regex='history'}}">
+                    <a href="{{pathFor route='history'}}"><i class="fa fa-flask"></i> <span class="nav-label">History</span> </a>
+                </li>
+
+                <li class="{{isActiveRoute regex='reports'}}">
+                    <a href="{{pathFor route='reports'}}"><i class="fa fa-flask"></i> <span class="nav-label">Reports</span> </a>
+                </li>
+
                 <li class="{{isActiveRoute regex='places|paths|schedules'}}">
                     <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Configurations</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level {{isActiveRoute regex='dashboard1|dashboard2|dashboard3|dashboard4l' className='in'}}">

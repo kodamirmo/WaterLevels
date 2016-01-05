@@ -1,0 +1,21 @@
+<template name="history">
+
+    <!-- Page heading -->
+    {{> pageHeading title='History' }}
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+       
+    	<div class="row">
+    		<div class="ibox float-e-margins">
+    			<div class="ibox-title">
+                        <h5>History</h5>
+                        
+                </div>
+    			<div class="ibox-content">
+ 		   			{{> reactiveTable settings=settings}}
+ 		   		</div>
+    		</div>
+    	</div>
+
+    </div>
+</template>
